@@ -1,6 +1,6 @@
-from django.template.defaultfilters import first
 
-import Day9.read_data_and_process_it as r
+
+import read_data_and_process_it as r
 
 #first_file_path
 file1='/Users/mac/Downloads/order_region_a(in).csv'
