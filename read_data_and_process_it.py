@@ -8,8 +8,10 @@ def read_data (file1,file2):
 
     dfa = pd.read_csv(csv1)
     dfb = pd.read_csv(csv2)
-    return (dfa,dfb)
+    print("Data has been fetch successfully")
+    process(dfa,dfb)
 def process(dfa,dfb):
+    print("Data is processing.....")
     dfa["region"] = 'A'
     dfb["region"] = 'B'
     combo = pd.concat([dfa, dfb], ignore_index=True)
@@ -20,7 +22,10 @@ def process(dfa,dfb):
     combo = combo[combo["net_sale"] > 0]
     combo["PromotionDiscount"] = combo["PromotionDiscount"].apply(json.dumps)
     combo.reset_index(drop=True, inplace=True)
-    return combo
+    print("data has been processed successfully")
+    add_data_to_sql(combo)
+
 def add_data_to_sql(combo):
     engine = create_engine("sqlite:///sales_data.db")
     combo.to_sql("sales_table", engine, if_exists="replace", index=False)
+    print("data has added to database")
